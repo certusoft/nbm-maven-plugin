@@ -921,6 +921,11 @@ public class NetBeansManifestUpdateMojo
     {
         URL url = new File( path ).toURI().toURL();
         ASMDependencyAnalyzer dependencyAnalyzer = new ASMDependencyAnalyzer();
-        return dependencyAnalyzer.analyze( url );
+        try {
+            return dependencyAnalyzer.analyze(url);
+        } catch (Exception e){
+            getLog().error( "Error analyzing path dependency: "+ path);
+            throw e;
+        }
     }
 }
